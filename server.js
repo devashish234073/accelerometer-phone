@@ -18,8 +18,8 @@ function serverfunction(req,res) {
 
 var objArr = [];
 function writeToFileAsynchronously(obj) {
-  objArr.push(obj);//for testing reduced it to 2 will change back to 100
-  if(objArr.length%2==0) {//to insert file only after 100th data
+  objArr.push(obj);
+  if(objArr.length%100==0) {//to insert file only after 100th data
     console.log("writing to file, array size has become"+objArr.length);
     fName = "data.txt";
     var oldData = "";
