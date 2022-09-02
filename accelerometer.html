@@ -52,7 +52,7 @@
     var y = _("#y");
     var z = _("#z");
     var trigger = _("#trigger");
-    /*if (window.DeviceMotionEvent == undefined) {
+    if (window.DeviceMotionEvent == undefined) {
       alert("no accelerometer");
     } else {
       window.addEventListener("devicemotion", accelerometerUpdate, true);
@@ -65,14 +65,14 @@
       x.innerText = aX.toFixed(2);
       y.innerText = aY.toFixed(2);
       z.innerText = aZ.toFixed(2);
-    }*/
+    }
 
     var tmr = null;
     function toggleSaveData() {
       if (tmr == null) {
         tmr = setInterval(function () {
-          //saveData("data?x=" + x.innerText + "&y=" + y.innerText + "&z=" + z.innerText);
-          saveData("data?x=" + 12 + "&y=" + 23 + "&z=" + 34);
+          saveData("data?x=" + x.innerText + "&y=" + y.innerText + "&z=" + z.innerText);
+          //saveData("data?x=" + 12 + "&y=" + 23 + "&z=" + 34);
         }, 500);
         trigger.innerText = "Stop Sending Data";
       } else {
