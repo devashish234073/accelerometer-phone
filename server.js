@@ -6,6 +6,7 @@ function serverfunction(req,res) {
   if(req.url=="/") {
     res.end(data);
   }
+}
 var PORT = 8080;
 server.listen(PORT,function(){
   console.log(`listening on PORT ${PORT}`);
