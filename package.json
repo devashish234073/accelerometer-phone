@@ -1,0 +1,20 @@
+{
+  "name": "accelerometer-phone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js 30",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devashish234073/accelerometer-phone.git"
+  },
+  "author": "Devashish Priyadarshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devashish234073/accelerometer-phone/issues"
+  },
+  "homepage": "https://github.com/devashish234073/accelerometer-phone#readme"
+}
