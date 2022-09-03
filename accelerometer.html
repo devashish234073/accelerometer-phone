@@ -17,7 +17,21 @@
     #out {
       background-color: black;
       color: yellow;
+      width:100%;
+      text-align:center;
     }
+    #trigger {
+      background-color:green;
+      color:white;
+      border-radius: 20px;
+      height:30px;
+      border:none;
+    }
+    #trigger:active{
+      background-color:orange;
+      color:black;
+    }
+
   </style>
 </head>
 
@@ -41,9 +55,9 @@
         <p id="z"></p>
       </td>
     </tr>
+    <tr><td colspan="2"><button id="trigger" onclick="toggleSaveData()">Start Sending Data</button></td></tr>
   </table>
-  <p id="out"></p>
-  <button id="trigger" onclick="toggleSaveData()">Start Sending Data</button>
+  <p id="out">.</p>
   <script>
     function _(selector) {
       return document.querySelector(selector);
