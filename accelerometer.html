@@ -12,6 +12,7 @@
 
     table td {
       border: 1px solid black;
+      text-align: center;
     }
 
     #out {
@@ -27,7 +28,14 @@
       height:30px;
       border:none;
     }
-    #trigger:active{
+    #triggerTest {
+      background-color:blue;
+      color:white;
+      border-radius: 20px;
+      height:30px;
+      border:none;
+    }
+    #trigger:active,#triggerTest:active{
       background-color:orange;
       color:black;
     }
@@ -55,7 +63,9 @@
         <p id="z"></p>
       </td>
     </tr>
-    <tr><td colspan="2"><button id="trigger" onclick="toggleSaveData()">Start Sending Data</button></td></tr>
+    <tr><td colspan="2"><button id="trigger" onclick="toggleSaveData()">Send Actual Data</button></td></tr>
+    <tr><td colspan="2"><button id="triggerTest" onclick="toggleWithFakeData()">Send Fake Data</button></td></tr>
+    <tr><td colspan="2"><a href="graphs">Graphs</a></td></tr>
   </table>
   <p id="out">.</p>
   <script>
@@ -66,9 +76,12 @@
     var y = _("#y");
     var z = _("#z");
     var trigger = _("#trigger");
+    var triggerTest = _("#triggerTest");
+    var noaccelerometer = true;
     if (window.DeviceMotionEvent == undefined) {
       alert("no accelerometer");
     } else {
+      noaccelerometer = false;
       window.addEventListener("devicemotion", accelerometerUpdate, true);
     }
     function accelerometerUpdate() {
@@ -82,16 +95,34 @@
     }
 
     var tmr = null;
+    var tmrTest = null;
+    function getRandom() {
+      return (Math.random() * 100).toFixed(2);
+    }
+    function toggleWithFakeData() {
+      if (tmrTest == null) {
+        tmrTest = setInterval(function () {
+          saveData("data?x=" + getRandom() + "&y=" + getRandom() + "&z=" + getRandom());
+        }, 500);
+        triggerTest.innerText = "Stop Fake Data";
+      } else {
+        clearInterval(tmrTest);
+        triggerTest.innerText = "Send Fake Data";
+      }
+    }
     function toggleSaveData() {
+      if(noaccelerometer) {
+        alert("no acelerometer");
+        return;
+      }
       if (tmr == null) {
         tmr = setInterval(function () {
           saveData("data?x=" + x.innerText + "&y=" + y.innerText + "&z=" + z.innerText);
-          //saveData("data?x=" + 12 + "&y=" + 23 + "&z=" + 34);
         }, 500);
-        trigger.innerText = "Stop Sending Data";
+        trigger.innerText = "Stop Actual Data";
       } else {
         clearInterval(tmr);
-        trigger.innerText = "Start Sending Data";
+        trigger.innerText = "Send Actual Data";
       }
     }
     var out = _("#out");
