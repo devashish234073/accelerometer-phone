@@ -19,15 +19,35 @@
         border: 1px solid black;
         text-align: center;
     }
+
+    #trigger {
+        height: 30px;
+        background-color: green;
+        color: white;
+    }
+
+    #trigger:active {
+        background-color: orange;
+        color: black;
+        box-shadow: 3px 3px 10px black;
+    }
+
+    #raw {
+        color: white;
+        background-color: black;
+    }
 </style>
 
 <body>
     <table>
         <tr>
-            <td><button onclick="startRecordingBell()">Start Recording Bell</button></td>
+            <td><button id="trigger" onclick="toggleBellRecording()">Start Recording Bell</button></td>
         </tr>
         <tr>
             <td><a href="/">Home</a></td>
+        </tr>
+        <tr>
+            <td id="raw"></td>
         </tr>
     </table>
     <script>
@@ -38,14 +58,41 @@
             noaccelerometer = false;
             window.addEventListener("devicemotion", accelerometerUpdate, true);
         }
+        function _(selector) {
+            return document.querySelector(selector);
+        }
+        var trigger = _("#trigger");
+        var raw = _("#raw");
+        var aX = 0;
+        var aY = 0;
+        var aZ = 0;
         function accelerometerUpdate() {
             var acc = event.accelerationIncludingGravity;
             var aX = (acc.x).toFixed(2);
             var aY = (acc.y).toFixed(2);
             var aZ = (acc.z).toFixed(2);
         }
-        function startRecordingBell() {
-
+        var tmr = null;
+        var arr = [];
+        const SIZE = 20;
+        function toggleBellRecording() {
+            if(noaccelerometer) {
+                alert("no accelerometer");
+                return;
+            }
+            if (tmr != null) {
+                clearInterval(tmr);
+                trigger.innerText = "Start Recording Bell";
+            } else {
+                tmr = setInterval(function () {
+                    if (arr.length >= SIZE) {
+                        arr.splice(0, (arr.length - SIZE) + 1);
+                    }
+                    arr.push([aX, aY, aZ]);
+                    raw.innerText(JSON.stringify(arr));
+                }, 300);
+                trigger.innerText = "Stop Recording Bell";
+            }
         }
     </script>
 </body>
