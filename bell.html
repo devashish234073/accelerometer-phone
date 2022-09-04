@@ -98,7 +98,7 @@
                 tmr = null;
             } else {
                 tmr = setInterval(function() {
-                    raw.innerText(JSON.stringify(arr));
+                    raw.innerText = JSON.stringify(arr);
                 }, 300);
                 trigger.innerText = "Stop Recording Bell";
             }
