@@ -1,1 +1,53 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bell Recorder</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        box-shadow: 0px 0px 70px lightgreen;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    table td {
+        border: 1px solid black;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <table>
+        <tr>
+            <td><button onclick="startRecordingBell()">Start Recording Bell</button></td>
+        </tr>
+        <tr>
+            <td><a href="/">Home</a></td>
+        </tr>
+    </table>
+    <script>
+        var noaccelerometer = true;
+        if (window.DeviceMotionEvent == undefined) {
+            alert("no accelerometer");
+        } else {
+            noaccelerometer = false;
+            window.addEventListener("devicemotion", accelerometerUpdate, true);
+        }
+        function accelerometerUpdate() {
+            var acc = event.accelerationIncludingGravity;
+            var aX = (acc.x).toFixed(2);
+            var aY = (acc.y).toFixed(2);
+            var aZ = (acc.z).toFixed(2);
+        }
+        function startRecordingBell() {
+
+        }
+    </script>
+</body>
+
+</html>
