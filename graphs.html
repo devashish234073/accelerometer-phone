@@ -9,7 +9,7 @@
     <style>
         canvas {
             display: block;
-            height: 300px;
+            height: 200px;
             width: 100vw;
             border: 1px solid black;
         }
@@ -60,15 +60,15 @@
             plotZ(i,obj[i].z);
         }
         function plotX(ii,x) {
-            plot(ii,x, minX, maxX, "x");
+            plot(ii,x, minX, maxX, "x", "red");
         }
         function plotY(ii,y) {
-            plot(ii,y, minY, maxY, "y");
+            plot(ii,y, minY, maxY, "y", "green");
         }
         function plotZ(ii,z) {
-            plot(ii,z, minZ, maxZ, "z");
+            plot(ii,z, minZ, maxZ, "z", "blue");
         }
-        function plot(ii,value, min, max, id) {
+        function plot(ii,value, min, max, id, clr) {
             var canvas = document.getElementById(id);
             var canvasWidth = canvas.width;
             var canvasHeight = canvas.height;
@@ -76,6 +76,7 @@
             var yVal = canvasHeight - (((max-value)/(max-min))*canvasHeight);
             var ctx = canvas.getContext("2d");
             ctx.beginPath();
+            ctx.strokeStyle = clr;
             ctx.arc(xVal,yVal, y, 1, 0, 2 * Math.PI, true);
             ctx.stroke();
         }
