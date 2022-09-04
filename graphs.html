@@ -16,6 +16,10 @@
         table{
             margin-left: auto;
             margin-right: auto;
+            border-collapse:collapse;
+        }
+        table td{
+            border: 1px solid black;
         }
     </style>
 </head>
@@ -29,21 +33,29 @@
             <td></td>
             <td>Min Val</td>
             <td>Max Val</td>
+            <td>Plotted Min Val</td>
+            <td>Plotted Max Val</td>
         </tr>
         <tr>
             <td>X</td>
             <td id="mnX"></td>
             <td id="mxX"></td>
+            <td id="pltmnX"></td>
+            <td id="pltmxX"></td>
         </tr>
         <tr>
             <td>Y</td>
             <td id="mnY"></td>
             <td id="mxY"></td>
+            <td id="pltmnY"></td>
+            <td id="pltmxY"></td>
         </tr>
         <tr>
             <td>Z</td>
             <td id="mnZ"></td>
             <td id="mxZ"></td>
+            <td id="pltmnZ"></td>
+            <td id="pltmxZ"></td>
         </tr>
     </table>
     <script>
@@ -59,6 +71,12 @@
         var mxY = _("#mxY");
         var mnZ = _("#mnZ");
         var mxZ = _("#mxZ");
+        var pltmnX = _("#pltmnX");
+        var pltmxX = _("#pltmxX");
+        var pltmnY = _("#pltmnY");
+        var pltmxY = _("#pltmxY");
+        var pltmnZ = _("#pltmnZ");
+        var pltmxZ = _("#pltmxZ");
         var maxX = -100000.0;
         var maxY = -100000.0;
         var maxZ = -1000000.0;
@@ -94,6 +112,12 @@
         mxY.innerText = maxY;
         mnZ.innerText = minZ;
         mxZ.innerText = maxZ;
+        pltmnX.innerText = getPlottedY(maxX,minX,minX,_("#x").height);
+        pltmxX.innerText = getPlottedY(maxX,minX,maxX,_("#x").height);
+        pltmnY.innerText = getPlottedY(maxY,minY,minY,_("#y").height)
+        pltmxY.innerText = getPlottedY(maxY,minY,maxY,_("#y").height);
+        pltmnZ.innerText = getPlottedY(maxZ,minZ,minZ,_("#z").height);
+        pltmxZ.innerText = getPlottedY(maxZ,minZ,maxZ,_("#z").height);
         console.log(`${minX},${maxX} ${minY},${maxY} ${minZ},${maxZ}`);
         for (var i = 0; i < obj.length; i++) {
             plotX(i,obj[i].x);
@@ -113,13 +137,19 @@
             var canvas = document.getElementById(id);
             var canvasWidth = canvas.width;
             var canvasHeight = canvas.height;
-            var xVal = ((obj.length - ii)/obj.length)*canvasWidth;
-            var yVal = canvasHeight - (((max-value)/(max-min))*canvasHeight);
+            var xVal = getPlottedX(ii,obj,canvasWidth);
+            var yVal = getPlottedY(max,min,value,canvasHeight);
             var ctx = canvas.getContext("2d");
             ctx.beginPath();
             ctx.strokeStyle = clr;
             ctx.arc(xVal,yVal, y, 1, 0, 2 * Math.PI, true);
             ctx.stroke();
+        }
+        function getPlottedX(ii,obj,canvasWidth) {
+            return ((obj.length - ii)/obj.length)*canvasWidth;
+        }
+        function getPlottedY(max,min,value,canvasHeight) {
+            return canvasHeight - (((max-value)/(max-min))*canvasHeight);
         }
     </script>
 </body>
