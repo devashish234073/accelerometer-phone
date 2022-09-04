@@ -32,7 +32,8 @@
         box-shadow: 3px 3px 10px black;
     }
 
-    #raw,#raw0 {
+    #raw,
+    #raw0 {
         color: white;
         background-color: black;
     }
@@ -70,30 +71,33 @@
         var aX = 0;
         var aY = 0;
         var aZ = 0;
+        var arr = [];
+        const SIZE = 20;
         function accelerometerUpdate() {
             var acc = event.accelerationIncludingGravity;
             var aX = (acc.x).toFixed(2);
             var aY = (acc.y).toFixed(2);
             var aZ = (acc.z).toFixed(2);
-            raw0.innerText = JSON.stringify([aX,aY,aZ]);
+            var o = [aX, aY, aZ];
+            raw0.innerText = JSON.stringify(o);
+            if (arr.length >= SIZE) {
+                arr.splice(0, (arr.length - SIZE) + 1);
+            }
+            arr.push(o);
         }
         var tmr = null;
-        var arr = [];
-        const SIZE = 20;
+
         function toggleBellRecording() {
-            if(noaccelerometer) {
+            if (noaccelerometer) {
                 alert("no accelerometer");
                 return;
             }
             if (tmr != null) {
                 clearInterval(tmr);
                 trigger.innerText = "Start Recording Bell";
+                tmr = null;
             } else {
-                tmr = setInterval(function () {
-                    if (arr.length >= SIZE) {
-                        arr.splice(0, (arr.length - SIZE) + 1);
-                    }
-                    arr.push([aX, aY, aZ]);
+                tmr = setInterval(function() {
                     raw.innerText(JSON.stringify(arr));
                 }, 300);
                 trigger.innerText = "Stop Recording Bell";
