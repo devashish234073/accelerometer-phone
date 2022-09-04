@@ -32,7 +32,7 @@
         box-shadow: 3px 3px 10px black;
     }
 
-    #raw {
+    #raw,#raw0 {
         color: white;
         background-color: black;
     }
@@ -45,6 +45,9 @@
         </tr>
         <tr>
             <td><a href="/">Home</a></td>
+        </tr>
+        <tr>
+            <td id="raw0"></td>
         </tr>
         <tr>
             <td id="raw"></td>
@@ -62,6 +65,7 @@
             return document.querySelector(selector);
         }
         var trigger = _("#trigger");
+        var raw0 = _("#raw0");
         var raw = _("#raw");
         var aX = 0;
         var aY = 0;
@@ -71,6 +75,7 @@
             var aX = (acc.x).toFixed(2);
             var aY = (acc.y).toFixed(2);
             var aZ = (acc.z).toFixed(2);
+            raw[0].innerText = JSON.stringify([aX,aY,aZ]);
         }
         var tmr = null;
         var arr = [];
