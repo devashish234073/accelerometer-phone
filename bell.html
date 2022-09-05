@@ -147,7 +147,7 @@
                     currvaldisp.innerText = currval.value;
                     sensitives.innerText = fluctuation + " points fluctuating. arr len: "+arr.length;
                     if(fluctuation>parseInt(th.value)) {
-                        noted_times.push({"intensity":th.value,"datetime":(new Date()).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})});
+                        noted_times.push({"intensity":currval.value,"datetime":(new Date()).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})});
                     }
                     raw.innerText = JSON.stringify(arr);
                     times.innerText = JSON.stringify(noted_times);
