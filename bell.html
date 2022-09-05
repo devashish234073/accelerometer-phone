@@ -93,7 +93,7 @@
         var th = _("#th");
         var currval = _("#currval");
         var thdisp = _("#thdisp");
-        var currvaldisp = _("#currval");
+        var currvaldisp = _("#currvaldisp");
         var sensitives = _("#sensitives");
         th.addEventListener("change",function(){
             console.log("oh");
@@ -147,7 +147,7 @@
                     currvaldisp.innerText = currval.value;
                     sensitives.innerText = fluctuation + " points fluctuating. arr len: "+arr.length;
                     if(fluctuation>parseInt(th.value)) {
-                        noted_times.push((new Date()).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}));
+                        noted_times.push({"intensity":th.value,"datetime":(new Date()).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})});
                     }
                     raw.innerText = JSON.stringify(arr);
                     times.innerText = JSON.stringify(noted_times);
