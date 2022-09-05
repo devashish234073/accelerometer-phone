@@ -127,7 +127,7 @@
                         }
                     }
                     sensitives.innerText = fluctuation + " points fluctuating. arr len: "+arr.length;
-                    if(fluctuation>arr.length/3) {
+                    if(fluctuation>1) {
                         noted_times.push((new Date()).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}));
                     }
                     raw.innerText = JSON.stringify(arr);
