@@ -50,28 +50,28 @@
 <body>
     <table>
         <tr>
-            <td><button id="trigger" onclick="toggleBellRecording()">Start Recording Bell</button></td>
+            <td colspan="3"><button id="trigger" onclick="toggleBellRecording()">Start Recording Bell</button></td>
         </tr>
         <tr>
-            <td><a href="/">Home</a></td>
+            <td colspan="3"><a href="/">Home</a></td>
         </tr>
         <tr>
-            <td id="raw0"></td>
+            <td colspan="3" id="raw0"></td>
         </tr>
         <tr>
-            <td id="raw"></td>
+            <td colspan="3" id="raw"></td>
         </tr>
         <tr>
-            <td>Threshold: <input id="th" type="range" step="1" min="0"></td>
+            <td>Threshold:</td><td><input id="th" type="range" step="1" min="0" value="1"></td><td id="thdisp"></td>
         </tr>
         <tr>
-            <td>Current Value: <input id="currval" type="range" step="1" min="0" disabled></td>
+            <td>Current Value:</td><td></td><input id="currval" type="range" step="1" min="0" disabled></td><td id="currvaldisp"></td>
         </tr>
         <tr>
-            <td id="sensitives"></td>
+            <td colspan="3" id="sensitives"></td>
         </tr>
         <tr>
-            <td id="times"></td>
+            <td colspan="3" id="times"></td>
         </tr>
     </table>
     <script>
@@ -92,7 +92,12 @@
         var times = _("#times");
         var th = _("#th");
         var currval = _("#currval");
+        var thdisp = _("#th");
+        var currvaldisp = _("#currval");
         var sensitives = _("#sensitives");
+        th.addEventListener("change",function(){
+            thdisp.innerText = th.value;
+        });
         var aX = 0;
         var aY = 0;
         var aZ = 0;
@@ -137,8 +142,9 @@
                         }
                     }
                     currval.value = fluctuation;
+                    currvaldisp.innerText = currval.value;
                     sensitives.innerText = fluctuation + " points fluctuating. arr len: "+arr.length;
-                    if(fluctuation>1) {
+                    if(fluctuation>parseInt(th.value)) {
                         noted_times.push((new Date()).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}));
                     }
                     raw.innerText = JSON.stringify(arr);
