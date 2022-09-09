@@ -150,7 +150,7 @@
             ctx.stroke();
         }
         function getPlottedX(ii,obj,canvasWidth) {
-            return ((obj.length - ii)/obj.length)*canvasWidth;
+            return canvasWidth = ((obj.length - ii)/obj.length)*canvasWidth;
         }
         function getPlottedY(max,min,value,canvasHeight) {
             return canvasHeight - (((max-value)/(max-min))*canvasHeight);

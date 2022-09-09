@@ -134,7 +134,7 @@
         var firstT = null;
         var MIN = -100;
         var MAX = 100;
-        var MAXT = 10000;
+        var MAXT = 1000000;
         function plotXYZ(xVal,yVal,zVal) {
             var date = new Date();
             var t = date.valueOf();
@@ -157,7 +157,7 @@
             ctx.stroke();
         }
         function getPlottedX(ii,maxTVal,canvasWidth) {
-            return ((maxTVal - ii)/maxTVal)*canvasWidth;
+            return canvasWidth - ((maxTVal - ii)/maxTVal)*canvasWidth;
         }
         function getPlottedY(max,min,value,canvasHeight) {
             return canvasHeight - (((max-value)/(max-min))*canvasHeight);
