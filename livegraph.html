@@ -76,7 +76,13 @@
             <td colspan="2"><button id="trigger" onclick="toggleSaveData()">Send Actual Data</button></td>
         </tr>
         <tr>
-            <td colspan="2"><a href="">Home</a></td>
+            <td colspan="2"><a href="/">Home</a></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="range" min="0" max="1000000" value="100000" id="tAxMaxSlider"></td>
+        </tr>
+        <tr>
+            <td colspan="2" id="tAxMax">Time axis max: 100000</td>
         </tr>
     </table>
     <p id="out">.</p>
@@ -95,6 +101,8 @@
         var zCnv = _("#zCnv");
         var trigger = _("#trigger");
         var triggerTest = _("#triggerTest");
+        var tAxMaxSlider = _("#tAxMaxSlider");
+        var tAxMax = _("#tAxMax");
         var noaccelerometer = true;
         if (window.DeviceMotionEvent == undefined) {
             alert("no accelerometer");
@@ -111,7 +119,9 @@
             y.innerText = aY.toFixed(2);
             z.innerText = aZ.toFixed(2);
         }
-
+        tAxMaxSlider.addEventListener("change",function(){
+            tAxMax.innerText = "Time axis max: " + tAxMaxSlider.value;
+        });
         var tmr = null;
         var tmrTest = null;
         function toggleSaveData() {
@@ -121,6 +131,7 @@
             }
             if (tmr == null) {
                 tmr = setInterval(function () {
+                    MAXT = parseInt(tAxMaxSlider.value);
                     plotXYZ(parseInt(x.innerText),parseInt(y.innerText),parseInt(z.innerText));
                 }, 500);
                 trigger.innerText = "Stop Actual Data";
@@ -134,7 +145,7 @@
         var firstT = null;
         var MIN = -100;
         var MAX = 100;
-        var MAXT = 1000000;
+        var MAXT = parseInt(tAxMaxSlider.value);
         function plotXYZ(xVal,yVal,zVal) {
             var date = new Date();
             var t = date.valueOf();
