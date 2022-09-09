@@ -40,8 +40,10 @@ function serverfunction(req,res) {
     }
   } else if(req.url=="/bells") {
     res.end(bell);
-  } else if(req.url=="livegraph") {
+  } else if(req.url=="/livegraph") {
     res.end(livegraph);
+  } else {
+    res.end("invalid page. Go to <a href='/'>Home</a>");
   }
 }
 
