@@ -134,6 +134,7 @@
         var firstT = null;
         var MIN = -100;
         var MAX = 100;
+        var MAXT = 10000;
         function plotXYZ(xVal,yVal,zVal) {
             var date = new Date();
             var t = date.valueOf();
@@ -147,7 +148,7 @@
         function plot(ii,value, min, max, canvas, clr) {
             var canvasWidth = canvas.width;
             var canvasHeight = canvas.height;
-            var xVal = getPlottedX(ii,obj,canvasWidth);
+            var xVal = getPlottedX(ii,MAXT,canvasWidth);
             var yVal = getPlottedY(max,min,value,canvasHeight);
             var ctx = canvas.getContext("2d");
             ctx.beginPath();
@@ -155,8 +156,8 @@
             ctx.arc(xVal,yVal, 3, 1, 0, 2 * Math.PI, true);
             ctx.stroke();
         }
-        function getPlottedX(ii,obj,canvasWidth) {
-            return ((obj.length - ii)/obj.length)*canvasWidth;
+        function getPlottedX(ii,maxTVal,canvasWidth) {
+            return ((maxTVal - ii)/maxTVal)*canvasWidth;
         }
         function getPlottedY(max,min,value,canvasHeight) {
             return canvasHeight - (((max-value)/(max-min))*canvasHeight);
