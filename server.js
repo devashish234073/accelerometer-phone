@@ -17,6 +17,7 @@ if(process.argv.length==3) {
 var server = http.createServer(serverfunction);
 var data = fs.readFileSync("accelerometer.html");
 var graphs = String(fs.readFileSync("graphs.html"));
+var livegraph = String(fs.readFileSync("livegraph.html"));
 var bell = String(fs.readFileSync("bell.html"));
 function serverfunction(req,res) {
   if(req.url=="/") {
@@ -39,6 +40,8 @@ function serverfunction(req,res) {
     }
   } else if(req.url=="/bells") {
     res.end(bell);
+  } else if(req.url=="livegraph") {
+    res.end(livegraph);
   }
 }
 

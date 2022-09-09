@@ -1,0 +1,167 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        canvas {
+            display: block;
+            height: 200px;
+            width: 100vw;
+            border: 1px solid black;
+        }
+        table {
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 0px 70px lightgreen;
+        }
+
+        table td {
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        #out {
+            background-color: black;
+            color: yellow;
+            width: 100%;
+            text-align: center;
+        }
+
+        #trigger {
+            background-color: green;
+            color: white;
+            border-radius: 20px;
+            height: 30px;
+            border: none;
+        }
+
+        #triggerTest {
+            background-color: blue;
+            color: white;
+            border-radius: 20px;
+            height: 30px;
+            border: none;
+        }
+
+        #trigger:active,
+        #triggerTest:active {
+            background-color: orange;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>X</td>
+            <td>
+                <p id="x"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Y</td>
+            <td>
+                <p id="y"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Z</td>
+            <td>
+                <p id="z"></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button id="trigger" onclick="toggleSaveData()">Send Actual Data</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="">Home</a></td>
+        </tr>
+    </table>
+    <p id="out">.</p>
+    X<canvas id="xCnv"></canvas><br>
+    Y<canvas id="yCnv"></canvas><br>
+    Z<canvas id="zCnv"></canvas><br>
+    <script>
+        function _(selector) {
+            return document.querySelector(selector);
+        }
+        var x = _("#x");
+        var y = _("#y");
+        var z = _("#z");
+        var xCnv = _("#xCnv");
+        var yCnv = _("#yCnv");
+        var zCnv = _("#zCnv");
+        var trigger = _("#trigger");
+        var triggerTest = _("#triggerTest");
+        var noaccelerometer = true;
+        if (window.DeviceMotionEvent == undefined) {
+            alert("no accelerometer");
+        } else {
+            noaccelerometer = false;
+            window.addEventListener("devicemotion", accelerometerUpdate, true);
+        }
+        function accelerometerUpdate() {
+            var acc = event.accelerationIncludingGravity;
+            var aX = acc.x;
+            var aY = acc.y;
+            var aZ = acc.z;
+            x.innerText = aX.toFixed(2);
+            y.innerText = aY.toFixed(2);
+            z.innerText = aZ.toFixed(2);
+        }
+
+        var tmr = null;
+        var tmrTest = null;
+        function toggleSaveData() {
+            if (noaccelerometer) {
+                alert("no acelerometer");
+                return;
+            }
+            if (tmr == null) {
+                tmr = setInterval(function () {
+                    plotXYZ(parseInt(x.innerText),parseInt(y.innerText),parseInt(z.innerText));
+                }, 500);
+                trigger.innerText = "Stop Actual Data";
+            } else {
+                clearInterval(tmr);
+                trigger.innerText = "Send Actual Data";
+                tmr = null;
+            }
+        }
+        var out = _("#out");
+        var firstT = null;
+        var MIN = -100;
+        var MAX = 100;
+        function plotXYZ(xVal,yVal,zVal) {
+            var date = new Date();
+            var t = date.valueOf();
+            if(firstT==null) {
+                firstT = t;
+            }
+            plot(t-firstT,xVal, MIN, MAX, xCnv, 'red');
+            plot(t-firstT,yVal, MIN, MAX, yCnv, 'green');
+            plot(t-firstT,zVal, MIN, MAX, zCnv, 'blue');
+        } 
+        function plot(ii,value, min, max, canvas, clr) {
+            var canvasWidth = canvas.width;
+            var canvasHeight = canvas.height;
+            var xVal = getPlottedX(ii,obj,canvasWidth);
+            var yVal = getPlottedY(max,min,value,canvasHeight);
+            var ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.strokeStyle = clr;
+            ctx.arc(xVal,yVal, 3, 1, 0, 2 * Math.PI, true);
+            ctx.stroke();
+        }
+        function getPlottedX(ii,obj,canvasWidth) {
+            return ((obj.length - ii)/obj.length)*canvasWidth;
+        }
+        function getPlottedY(max,min,value,canvasHeight) {
+            return canvasHeight - (((max-value)/(max-min))*canvasHeight);
+        }
+    </script>
+</body>
+
+</html>
