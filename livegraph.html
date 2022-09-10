@@ -86,9 +86,15 @@
         </tr>
     </table>
     <p id="out">.</p>
-    X<canvas id="xCnv"></canvas><br>
-    Y<canvas id="yCnv"></canvas><br>
-    Z<canvas id="zCnv"></canvas><br>
+    aX<canvas id="axCnv"></canvas><br>
+    aY<canvas id="ayCnv"></canvas><br>
+    aZ<canvas id="azCnv"></canvas><br>
+    vX<canvas id="vxCnv"></canvas><br>
+    vY<canvas id="vyCnv"></canvas><br>
+    vZ<canvas id="vzCnv"></canvas><br>
+    dX<canvas id="dxCnv"></canvas><br>
+    dY<canvas id="dyCnv"></canvas><br>
+    dZ<canvas id="dzCnv"></canvas><br>
     <script>
         function _(selector) {
             return document.querySelector(selector);
@@ -96,9 +102,9 @@
         var x = _("#x");
         var y = _("#y");
         var z = _("#z");
-        var xCnv = _("#xCnv");
-        var yCnv = _("#yCnv");
-        var zCnv = _("#zCnv");
+        var axCnv = _("#axCnv");
+        var ayCnv = _("#ayCnv");
+        var azCnv = _("#azCnv");
         var trigger = _("#trigger");
         var triggerTest = _("#triggerTest");
         var tAxMaxSlider = _("#tAxMaxSlider");
@@ -143,6 +149,7 @@
         }
         var out = _("#out");
         var firstT = null;
+        var lastT = null;
         var MIN = -100;
         var MAX = 100;
         var MAXT = parseInt(tAxMaxSlider.value);
@@ -152,9 +159,27 @@
             if(firstT==null) {
                 firstT = t;
             }
-            plot(t-firstT,xVal, MIN, MAX, xCnv, 'red');
-            plot(t-firstT,yVal, MIN, MAX, yCnv, 'green');
-            plot(t-firstT,zVal, MIN, MAX, zCnv, 'blue');
+            //plot accelerations
+            plot(t-firstT,xVal, MIN, MAX, axCnv, 'red');
+            plot(t-firstT,yVal, MIN, MAX, ayCnv, 'green');
+            plot(t-firstT,zVal, MIN, MAX, azCnv, 'blue');
+            if(lastT!=null) {
+                //plot velocity
+                var vXVal = xVal*(t-lastT);
+                var vYVal = yVal*(t-lastT);
+                var vZVal = zVal*(t-lastT);
+                plot(t-firstT,vXVal, MIN, MAX, vxCnv, 'red');
+                plot(t-firstT,vYVal, MIN, MAX, vyCnv, 'green');
+                plot(t-firstT,vZVal, MIN, MAX, vzCnv, 'blue');
+                //plot distances
+                var dXVal = vXVal*(t-lastT);
+                var dYVal = vYVal*(t-lastT);
+                var dZVal = vZVal*(t-lastT);
+                plot(t-firstT,dXVal, MIN, MAX, vxCnv, 'red');
+                plot(t-firstT,dYVal, MIN, MAX, vyCnv, 'green');
+                plot(t-firstT,dZVal, MIN, MAX, vzCnv, 'blue');
+            }
+            lastT = t;
         } 
         function plot(ii,value, min, max, canvas, clr) {
             var canvasWidth = canvas.width;
