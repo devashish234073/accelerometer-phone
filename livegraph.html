@@ -153,6 +153,12 @@
         var MIN = -100;
         var MAX = 100;
         var MAXT = parseInt(tAxMaxSlider.value);
+        var vXVal = 0.0;
+        var vYVal = 0.0;
+        var vZVal = 0.0;
+        var dXVal = 0.0;
+        var dYVal = 0.0;
+        var dZVal = 0.0;
         function plotXYZ(xVal,yVal,zVal) {
             var date = new Date();
             var t = date.valueOf();
@@ -166,19 +172,19 @@
             if(lastT!=null) {
                 //plot velocity
                 var delT = (t-lastT)/1000;//to convert it to second
-                var vXVal = xVal*delT;
-                var vYVal = yVal*delT;
-                var vZVal = zVal*delT;
-                plot(t-firstT,vXVal, MIN*2, MAX*2, vxCnv, 'red');
-                plot(t-firstT,vYVal, MIN*2, MAX*2, vyCnv, 'green');
-                plot(t-firstT,vZVal, MIN*2, MAX*2, vzCnv, 'blue');
+                vXVal += xVal*delT;
+                vYVal += yVal*delT;
+                vZVal += zVal*delT;
+                plot(t-firstT,vXVal, MIN*10, MAX*2, vxCnv, 'red');
+                plot(t-firstT,vYVal, MIN*10, MAX*2, vyCnv, 'green');
+                plot(t-firstT,vZVal, MIN*10, MAX*2, vzCnv, 'blue');
                 //plot distances
-                var dXVal = vXVal*delT;
-                var dYVal = vYVal*delT;
-                var dZVal = vZVal*delT;
-                plot(t-firstT,dXVal, MIN*3, MAX*3, dxCnv, 'red');
-                plot(t-firstT,dYVal, MIN*3, MAX*3, dyCnv, 'green');
-                plot(t-firstT,dZVal, MIN*3, MAX*3, dzCnv, 'blue');
+                dXVal += vXVal*delT;
+                dYVal += vYVal*delT;
+                dZVal += vZVal*delT;
+                plot(t-firstT,dXVal, MIN*20, MAX*3, dxCnv, 'red');
+                plot(t-firstT,dYVal, MIN*20, MAX*3, dyCnv, 'green');
+                plot(t-firstT,dZVal, MIN*20, MAX*3, dzCnv, 'blue');
             }
             lastT = t;
         } 
