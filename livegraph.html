@@ -79,7 +79,7 @@
             <td colspan="2"><a href="/">Home</a></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="range" min="0" max="1000000" value="100000" id="tAxMaxSlider"></td>
+            <td colspan="2"><input type="range" min="1000" step="100" max="1000000" value="100000" id="tAxMaxSlider"></td>
         </tr>
         <tr>
             <td colspan="2" id="tAxMax">Time axis max: 100000</td>
@@ -175,6 +175,7 @@
                 var dXVal = vXVal*(t-lastT);
                 var dYVal = vYVal*(t-lastT);
                 var dZVal = vZVal*(t-lastT);
+                out.innerText = out.innerText + "<br>" + dXVal;
                 plot(t-firstT,dXVal, MIN, MAX, vxCnv, 'red');
                 plot(t-firstT,dYVal, MIN, MAX, vyCnv, 'green');
                 plot(t-firstT,dZVal, MIN, MAX, vzCnv, 'blue');
