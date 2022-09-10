@@ -165,20 +165,21 @@
             plot(t-firstT,zVal, MIN, MAX, azCnv, 'blue');
             if(lastT!=null) {
                 //plot velocity
-                var vXVal = xVal*(t-lastT);
-                var vYVal = yVal*(t-lastT);
-                var vZVal = zVal*(t-lastT);
-                plot(t-firstT,vXVal, MIN, MAX, vxCnv, 'red');
-                plot(t-firstT,vYVal, MIN, MAX, vyCnv, 'green');
-                plot(t-firstT,vZVal, MIN, MAX, vzCnv, 'blue');
+                var delT = (t-lastT)/1000;//to convert it to second
+                var vXVal = xVal*delT;
+                var vYVal = yVal*delT;
+                var vZVal = zVal*delT;
+                plot(t-firstT,vXVal, MIN*2, MAX*2, vxCnv, 'red');
+                plot(t-firstT,vYVal, MIN*2, MAX*2, vyCnv, 'green');
+                plot(t-firstT,vZVal, MIN*2, MAX*2, vzCnv, 'blue');
                 //plot distances
-                var dXVal = vXVal*(t-lastT);
-                var dYVal = vYVal*(t-lastT);
-                var dZVal = vZVal*(t-lastT);
+                var dXVal = vXVal*delT;
+                var dYVal = vYVal*delT;
+                var dZVal = vZVal*delT;
                 out.innerText = out.innerText + "<br>" + dXVal;
-                plot(t-firstT,dXVal, MIN, MAX, vxCnv, 'red');
-                plot(t-firstT,dYVal, MIN, MAX, vyCnv, 'green');
-                plot(t-firstT,dZVal, MIN, MAX, vzCnv, 'blue');
+                plot(t-firstT,dXVal, MIN*3, MAX*3, vxCnv, 'red');
+                plot(t-firstT,dYVal, MIN*3, MAX*3, vyCnv, 'green');
+                plot(t-firstT,dZVal, MIN*3, MAX*3, vzCnv, 'blue');
             }
             lastT = t;
         } 
