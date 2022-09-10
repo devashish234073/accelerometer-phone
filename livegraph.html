@@ -176,10 +176,9 @@
                 var dXVal = vXVal*delT;
                 var dYVal = vYVal*delT;
                 var dZVal = vZVal*delT;
-                out.innerText = out.innerText + "<br>" + dXVal;
-                plot(t-firstT,dXVal, MIN*3, MAX*3, vxCnv, 'red');
-                plot(t-firstT,dYVal, MIN*3, MAX*3, vyCnv, 'green');
-                plot(t-firstT,dZVal, MIN*3, MAX*3, vzCnv, 'blue');
+                plot(t-firstT,dXVal, MIN*3, MAX*3, dxCnv, 'red');
+                plot(t-firstT,dYVal, MIN*3, MAX*3, dyCnv, 'green');
+                plot(t-firstT,dZVal, MIN*3, MAX*3, dzCnv, 'blue');
             }
             lastT = t;
         } 
