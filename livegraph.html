@@ -234,7 +234,7 @@
             return canvasWidth - ((maxTVal - ii)/maxTVal)*canvasWidth;
         }
         function getPlottedY(max,min,value,canvasHeight) {
-            return canvasHeight - (((max-value)/(max-min))*canvasHeight);
+            return (((max-value)/(max-min))*canvasHeight);
         }
     </script>
 </body>
