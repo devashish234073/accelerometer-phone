@@ -200,9 +200,9 @@
                 vXVal += xVal*delT;
                 vYVal += yVal*delT;
                 vZVal += zVal*delT;
-                plot(t-firstT,vXVal, MIN*10, MAX*2, vxCnv, 'red');
-                plot(t-firstT,vYVal, MIN*10, MAX*2, vyCnv, 'green');
-                plot(t-firstT,vZVal, MIN*10, MAX*2, vzCnv, 'blue');
+                plot(t-firstT,vXVal, MIN*10, MAX*10, vxCnv, 'red');
+                plot(t-firstT,vYVal, MIN*10, MAX*10, vyCnv, 'green');
+                plot(t-firstT,vZVal, MIN*10, MAX*10, vzCnv, 'blue');
                 vXCurrVal.innerText = vXVal + "m/s";
                 vYCurrVal.innerText = vYVal + "m/s";
                 vZCurrVal.innerText = vZVal + "m/s";
@@ -210,9 +210,9 @@
                 dXVal += vXVal*delT;
                 dYVal += vYVal*delT;
                 dZVal += vZVal*delT;
-                plot(t-firstT,dXVal, MIN*20, MAX*3, dxCnv, 'red');
-                plot(t-firstT,dYVal, MIN*20, MAX*3, dyCnv, 'green');
-                plot(t-firstT,dZVal, MIN*20, MAX*3, dzCnv, 'blue');
+                plot(t-firstT,dXVal, MIN*20, MAX*20, dxCnv, 'red');
+                plot(t-firstT,dYVal, MIN*20, MAX*20, dyCnv, 'green');
+                plot(t-firstT,dZVal, MIN*20, MAX*20, dzCnv, 'blue');
                 dXCurrVal.innerText = dXVal + "m";
                 dYCurrVal.innerText = dYVal + "m";
                 dZCurrVal.innerText = dZVal + "m";
