@@ -87,14 +87,23 @@
     </table>
     <p id="out">.</p>
     aX<canvas id="axCnv"></canvas><br>
+    aX currentValue<p id="aXCurrVal"></p>
     aY<canvas id="ayCnv"></canvas><br>
+    aY currentValue<p id="aYCurrVal"></p>
     aZ<canvas id="azCnv"></canvas><br>
+    aZ currentValue<p id="aZCurrVal"></p>
     vX<canvas id="vxCnv"></canvas><br>
+    vX currentValue<p id="vXCurrVal"></p>
     vY<canvas id="vyCnv"></canvas><br>
+    vY currentValue<p id="vYCurrVal"></p>
     vZ<canvas id="vzCnv"></canvas><br>
+    vZ currentValue<p id="vZCurrVal"></p>
     dX<canvas id="dxCnv"></canvas><br>
+    dX currentValue<p id="dXCurrVal"></p>
     dY<canvas id="dyCnv"></canvas><br>
+    dY currentValue<p id="dYCurrVal"></p>
     dZ<canvas id="dzCnv"></canvas><br>
+    dZ currentValue<p id="dZCurrVal"></p>
     <script>
         function _(selector) {
             return document.querySelector(selector);
@@ -110,6 +119,19 @@
         var tAxMaxSlider = _("#tAxMaxSlider");
         var tAxMax = _("#tAxMax");
         var noaccelerometer = true;
+
+        var aXCurrVal = _("#aXCurrVal");
+        var aYCurrVal = _("#aYCurrVal");
+        var aZCurrVal = _("#aZCurrVal");
+
+        var vXCurrVal = _("#vXCurrVal");
+        var vYCurrVal = _("#vYCurrVal");
+        var vZCurrVal = _("#vZCurrVal");
+
+        var dXCurrVal = _("#dXCurrVal");
+        var dYCurrVal = _("#dYCurrVal");
+        var dZCurrVal = _("#dZCurrVal");
+
         if (window.DeviceMotionEvent == undefined) {
             alert("no accelerometer");
         } else {
@@ -169,6 +191,9 @@
             plot(t-firstT,xVal, MIN, MAX, axCnv, 'red');
             plot(t-firstT,yVal, MIN, MAX, ayCnv, 'green');
             plot(t-firstT,zVal, MIN, MAX, azCnv, 'blue');
+            aXCurrVal.innerText = xVal + "m/s2";
+            aYCurrVal.innerText = yVal + "m/s2";
+            aZCurrVal.innerText = zVal + "m/s2";
             if(lastT!=null) {
                 //plot velocity
                 var delT = (t-lastT)/1000;//to convert it to second
@@ -178,6 +203,9 @@
                 plot(t-firstT,vXVal, MIN*10, MAX*2, vxCnv, 'red');
                 plot(t-firstT,vYVal, MIN*10, MAX*2, vyCnv, 'green');
                 plot(t-firstT,vZVal, MIN*10, MAX*2, vzCnv, 'blue');
+                vXCurrVal.innerText = vXVal + "m/s";
+                vYCurrVal.innerText = vYVal + "m/s";
+                vZCurrVal.innerText = vZVal + "m/s";
                 //plot distances
                 dXVal += vXVal*delT;
                 dYVal += vYVal*delT;
@@ -185,6 +213,9 @@
                 plot(t-firstT,dXVal, MIN*20, MAX*3, dxCnv, 'red');
                 plot(t-firstT,dYVal, MIN*20, MAX*3, dyCnv, 'green');
                 plot(t-firstT,dZVal, MIN*20, MAX*3, dzCnv, 'blue');
+                dXCurrVal.innerText = dXVal + "m";
+                dYCurrVal.innerText = dYVal + "m";
+                dZCurrVal.innerText = dZVal + "m";
             }
             lastT = t;
         } 
